@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LawroomAI Drafting Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h1 class="logo">LawroomAI</h1>
+                <button class="menu-button">Create a new draft</button>
+            </div>
+        </aside>
+        <main class="main-content">
+            <section class="welcome">
+                <h2>Welcome to LawroomAI</h2>
+                <p>Your virtual drafting assistant for Indian Laws. Seamlessly draft accurate and customized legal documents with ease.</p>
+            </section>
+            <section class="features">
+                <div class="documents">
+                    <h3>Documents I can assist you with</h3>
+                    <button class="document-option" data-text="I want to draft an employment contract for a new employee in my company.">“I want to draft an employment contract for a new employee in my company.”</button>
+                    <button class="document-option" data-text="Draft a contempt application in Central Administrative Tribunal...">“Draft a contempt application in Central Administrative Tribunal...”</button>
+                    <button class="document-option" data-text="I want to quash an FIR filed against my client in the Delhi High Court...">“I want to quash an FIR filed against my client in the Delhi High Court...”</button>
+                </div>
+                <div class="capabilities">
+                    <h3>Capabilities</h3>
+                    <button>Ask me a question related to legal provisions...</button>
+                    <button>Prepare a draft based on any uploaded document or PDF.</button>
+                    <button>Refine the preliminary draft in our text editor.</button>
+                    <button>Add new clauses or regenerate the draft for accuracy.</button>
+                    <button>Download the draft in Word format.</button>
+                </div>
+            </section>
+            <footer class="chat-section">
+                <p>Chat or type your query below:</p>
+                <textarea id="chatInput" placeholder="Type your message here..."></textarea>
+                <button class="send-btn">Send</button>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript to handle populating the input box
+        document.querySelectorAll('.document-option').forEach(button => {
+            button.addEventListener('click', () => {
+                const text = button.getAttribute('data-text'); // Get the text from the data attribute
+                const chatInput = document.getElementById('chatInput');
+                chatInput.value = text; // Set the input box value to the clicked option's text
+                chatInput.focus(); // Automatically focus on the chat box
+            });
+        });
+    </script>
+</body>
+</html>
+
