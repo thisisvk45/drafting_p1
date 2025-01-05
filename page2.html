@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LawroomAI Drafting Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+
+        #main-container {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .editor-container {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .editor {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .fields {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .fields form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: red;
+        }
+
+        .features .documents button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .features .documents button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <!-- Draft Editor Section -->
+        <div class="editor-container" style="display: none;">
+            <div class="editor">
+                <h2>Employment Contract</h2>
+                <div id="draft-content">
+                    <!-- The draft template goes here -->
+                    <p>
+                        This Employment Contract ("Contract") is made on this 
+                        <span id="day-placeholder">{day}</span> day of 
+                        <span id="month-placeholder">{month}</span>, 
+                        <span id="year-placeholder">{year}</span>, between 
+                        <span id="company-name-placeholder">{company_name}</span>, a company incorporated under the Companies Act, 2013, having its registered office at 
+                        <span id="company-address-placeholder">{company_address}</span> (hereinafter referred to as the "Employer"), and 
+                        <span id="employee-name-placeholder">{employee_name}</span>, S/o, D/o, W/o 
+                        <span id="parent-spouse-placeholder">{parent_spouse_name}</span>, residing at 
+                        <span id="employee-address-placeholder">{employee_address}</span> (hereinafter referred to as the "Employee").
+                    </p>
+                    <p>
+                        WHEREAS the Employer desires to employ the Employee, and the Employee desires to be employed by the Employer, and both parties wish to specify the terms and conditions of such employment;
+                    </p>
+                    <p>NOW, THEREFORE, in consideration of the mutual covenants and agreements contained herein, the parties hereto agree as follows:</p>
+                    <ul>
+                        <li>
+                            <b>Position and Duties:</b>
+                            <ul>
+                                <li>That the Employee shall be employed in the capacity of <span id="job-title-placeholder">{job_title}</span>.</li>
+                                <li>That the Employee agrees to perform all duties and responsibilities related to the position as may be reasonably assigned by the Employer.</li>
+                            </ul>
+                        </li>
+                        <!-- Add other sections of the draft here -->
+                    </ul>
+                </div>
+            </div>
+            <div class="fields">
+                <h3>Fill Details</h3>
+                <form id="details-form">
+                    <label>Day</label>
+                    <input type="text" id="day-input" placeholder="Day" />
+                    
+                    <label>Month</label>
+                    <input type="text" id="month-input" placeholder="Month" />
+                    
+                    <label>Year</label>
+                    <input type="text" id="year-input" placeholder="Year" />
+                    
+                    <label>Company Name</label>
+                    <input type="text" id="company-name-input" placeholder="Company Name" />
+                    
+                    <label>Company Address</label>
+                    <input type="text" id="company-address-input" placeholder="Company Address" />
+                    
+                    <label>Employee Name</label>
+                    <input type="text" id="employee-name-input" placeholder="Employee Name" />
+                    
+                    <label>Parent/Spouse Name</label>
+                    <input type="text" id="parent-spouse-input" placeholder="Parent/Spouse Name" />
+                    
+                    <label>Employee Address</label>
+                    <input type="text" id="employee-address-input" placeholder="Employee Address" />
+                    
+                    <label>Job Title</label>
+                    <input type="text" id="job-title-input" placeholder="Job Title" />
+                </form>
+            </div>
+        </div>
+        <!-- Draft Selection Section -->
+        <div class="main-content">
+            <section class="features">
+                <div class="documents">
+                    <h3>Documents I can assist you with</h3>
+                    <button id="employment-contract-btn">“I want to draft an employment contract for a new employee in my company.”</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Handle showing the editor when "Send" is clicked
+        document.getElementById('employment-contract-btn').addEventListener('click', () => {
+            document.querySelector('.editor-container').style.display = 'flex';
+            document.querySelector('.main-content').style.display = 'none';
+        });
+
+        // Update draft content dynamically
+        const fields = [
+            { inputId: 'day-input', placeholderId: 'day-placeholder' },
+            { inputId: 'month-input', placeholderId: 'month-placeholder' },
+            { inputId: 'year-input', placeholderId: 'year-placeholder' },
+            { inputId: 'company-name-input', placeholderId: 'company-name-placeholder' },
+            { inputId: 'company-address-input', placeholderId: 'company-address-placeholder' },
+            { inputId: 'employee-name-input', placeholderId: 'employee-name-placeholder' },
+            { inputId: 'parent-spouse-input', placeholderId: 'parent-spouse-placeholder' },
+            { inputId: 'employee-address-input', placeholderId: 'employee-address-placeholder' },
+            { inputId: 'job-title-input', placeholderId: 'job-title-placeholder' },
+        ];
+
+        fields.forEach(field => {
+            const input = document.getElementById(field.inputId);
+            const placeholder = document.getElementById(field.placeholderId);
+
+            input.addEventListener('input', () => {
+                placeholder.textContent = input.value || `{${field.placeholderId.split('-')[0]}}`;
+            });
+        });
+    </script>
+</body>
+</html>
+
