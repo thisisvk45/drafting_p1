@@ -38,7 +38,7 @@
             <footer class="chat-section">
                 <p>Chat or type your query below:</p>
                 <textarea id="chatInput" placeholder="Type your message here..."></textarea>
-                <button class="send-btn">Send</button>
+                <button class="send-btn" onclick="redirectToPage()">Send</button>
             </footer>
         </main>
     </div>
@@ -53,7 +53,11 @@
                 chatInput.focus(); // Automatically focus on the chat box
             });
         });
+
+        // Function to redirect to page2.html
+        function redirectToPage() {
+            window.location.href = "page2.html";
+        }
     </script>
 </body>
 </html>
-
